@@ -91,5 +91,7 @@ while run:
         p2.update()
         p2.draw()
 
+        if sprite.collide_rect(p1, b) or sprite.collide_rect(p2, b):
+            b.x_speed = -b.x_speed
     display.update()
     clock.tick(FPS)
