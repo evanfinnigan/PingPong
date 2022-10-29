@@ -71,6 +71,7 @@ p2 = Paddle(700 - 75, 100, 15, 100, rand_color(), K_UP, K_DOWN)
 clock = time.Clock()
 FPS = 60
 
+# Game Loop
 finished = False
 run = True
 while run:
