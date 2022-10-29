@@ -19,8 +19,8 @@ class GameSprite(sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.x_speed = speed
-        self.y_speed = speed
+        self.x_speed = randint(speed-1,speed+1)
+        self.y_speed = randint(speed-1,speed+1)
         self.speed = speed
 
     def draw(self):
@@ -99,6 +99,7 @@ while run:
 
         if sprite.collide_rect(p1, b) or sprite.collide_rect(p2, b):
             b.x_speed = -b.x_speed
+            b.y_speed = randint(b.y_speed - 1, b.y_speed + 1)
 
         if b.rect.x <= 0:
             finished = True
