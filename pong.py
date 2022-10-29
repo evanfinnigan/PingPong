@@ -1,6 +1,6 @@
 # Author: Evan Finnigan, October 10 2022
 
-import pygame
+from pygame import *
 from random import randint
 import math
 
@@ -17,4 +17,24 @@ class GameSprite(sprite.Sprite):
     def draw(self):
         window.blit(self.image, (self.rect.x, self.rect.y))
 
+window = display.set_mode((700,500))
+background = transform.scale(image.load("img/banner.png"), (700,500))
 
+clock = time.Clock()
+FPS = 60
+
+finished = False
+run = True
+while run:
+    # Quitting the Game
+    for e in event.get():
+        if e.type == QUIT:
+            run = False
+
+    if not finished:
+
+        # Render Content to the Display
+        window.blit(background, (0,0))
+
+    display.update()
+    clock.tick(FPS)
