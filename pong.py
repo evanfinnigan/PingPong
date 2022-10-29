@@ -33,6 +33,7 @@ class Paddle(sprite.Sprite):
         self.height = h
         self.image = Surface((self.width,self.height))
         self.image.fill(c)
+        self.col = c
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -71,6 +72,11 @@ p2 = Paddle(700 - 75, 100, 15, 100, rand_color(), K_UP, K_DOWN)
 clock = time.Clock()
 FPS = 60
 
+font.init()
+font = font.Font(None,80)
+p1_win = font.render("Player 1 Wins!", True, p1.col)
+p2_win = font.render("Player 2 Wins!", True, p2.col)
+
 # Game Loop
 finished = False
 run = True
@@ -94,6 +100,13 @@ while run:
         if sprite.collide_rect(p1, b) or sprite.collide_rect(p2, b):
             b.x_speed = -b.x_speed
 
-            
+        if b.rect.x <= 0:
+            finished = True
+            window.blit(p2_win, (170,200))
+
+        if b.rect.x >= 700-12:
+            finished = True
+            window.blit(p1_win, (170,200))
+
     display.update()
     clock.tick(FPS)
