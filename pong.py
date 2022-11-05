@@ -9,7 +9,7 @@ colors = {
     "blue" : (50,50,240),
 }
 
-rand_color = lambda : (randint(100,255),randint(100,255),randint(100,255))
+rand_color = lambda : (randint(120,255),randint(120,255),randint(120,255))
 
 # Gamesprite will be a subclass of Sprite
 class GameSprite(sprite.Sprite):
