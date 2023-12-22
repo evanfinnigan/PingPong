@@ -51,12 +51,25 @@ class Paddle(sprite.Sprite):
 
 class Ball(GameSprite):
     def update(self):
+        global score_p1, score_p2, score_text_p1, score_text_p2
         self.rect.x += self.x_speed
         self.rect.y += self.y_speed
-        if self.x_speed > 0 and self.rect.x > 700-12:
+        if self.x_speed > 0 and self.rect.x >= 700-12:
             self.x_speed = -self.x_speed
-        if self.x_speed < 0 and self.rect.x < 0:
+            self.rect.x = 244
+            score_p1 += 1
+            score_text_p1 = font.render(f"Score: {score_p1}", True, p1.col)
+            if score_p1 >= 3:
+                finished = True
+                window.blit(p1_win, (170,200))
+        if self.x_speed < 0 and self.rect.x <= 0:
             self.x_speed = -self.x_speed
+            self.rect.x = 244
+            score_p2 += 1
+            score_text_p2 = font.render(f"Score: {score_p2}", True, p1.col)
+            if score_p2 >= 3:
+                finished = True
+                window.blit(p2_win, (170,200))
         if self.y_speed > 0 and self.rect.y > 500-12:
             self.y_speed = -self.y_speed
         if self.y_speed < 0 and self.rect.y < 0:
@@ -77,6 +90,11 @@ font = font.Font(None,80)
 p1_win = font.render("Player 1 Wins!", True, p1.col)
 p2_win = font.render("Player 2 Wins!", True, p2.col)
 
+score_text_p1 = font.render("Score: 0", True, p1.col)
+score_text_p2 = font.render("Score: 0", True, p2.col)
+score_p1 = 0
+score_p2 = 0
+
 # Game Loop
 finished = False
 run = True
@@ -96,18 +114,26 @@ while run:
         p1.draw()
         p2.update()
         p2.draw()
+        window.blit(score_text_p1, (10,10))
+        window.blit(score_text_p2, (400,10))
 
         if sprite.collide_rect(p1, b) or sprite.collide_rect(p2, b):
             b.x_speed = -b.x_speed
             b.y_speed = randint(b.y_speed - 1, b.y_speed + 1)
 
-        if b.rect.x <= 0:
-            finished = True
-            window.blit(p2_win, (170,200))
+        # if b.rect.x <= 0:
+        #     score_p2 += 1
+        #     score_text_p2 = font.render(f"Score: {score_p2}", True, p1.col)
+        #     if score_p2 >= 3:
+        #         finished = True
+        #         window.blit(p2_win, (170,200))
 
-        if b.rect.x >= 700-12:
-            finished = True
-            window.blit(p1_win, (170,200))
+        # if b.rect.x >= 700-12:
+        #     score_p2 += 1
+        #     score_text_p2 = font.render(f"Score: {score_p1}", True, p1.col)
+        #     if score_p2 >= 3:
+        #         finished = True
+        #         window.blit(p1_win, (170,200))
 
     display.update()
     clock.tick(FPS)
